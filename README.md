@@ -16,7 +16,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install hammer-cli-bluecat
+    $ gem install hammer_cli_bluecat
 
 ## Usage
 
