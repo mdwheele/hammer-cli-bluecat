@@ -144,11 +144,19 @@ module HammerCliBluecat
   end
 
   def location_ids
-    foreman.resource(:locations).call(:index)['results'].map { |e| e['id'] }
+    begin
+      foreman.resource(:locations).call(:index)['results'].map { |e| e['id'] }
+    rescue
+      []
+    end
   end
 
   def organization_ids
-    foreman.resource(:organizations).call(:index)['results'].map { |e| e['id'] }
+    begin
+      foreman.resource(:organizations).call(:index)['results'].map { |e| e['id'] }
+    rescue
+      []
+    end
   end
 
   def tftp_id
