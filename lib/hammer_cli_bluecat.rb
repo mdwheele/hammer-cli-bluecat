@@ -24,10 +24,10 @@ module HammerCliBluecat
         end
 
         # Gather current Foreman subnets
-        subnet_networks = foreman.resource(:subnets).call(:index, :per_page => 9999).map do |s|
+        subnet_networks = foreman.resource(:subnets).call(:index, :per_page => 9999)['results'].map do |s|
           {
-            :id => s['subnet']['id'],
-            :network => s['subnet']['network'],
+            :id => s['id'],
+            :network => s['network'],
           }
         end
 
@@ -130,11 +130,11 @@ module HammerCliBluecat
         :uri => uri,
         :username => username,
         :password => password,
-        :api_version => '1')
+        :api_version => '2')
   end
 
   def domain_ids
-    foreman.resource(:domains).call(:index).map { |e| e['domain']['id'] }
+    foreman.resource(:domains).call(:index)['results'].map { |e| e['id'] }
   end
 
   def tftp_id
