@@ -14,7 +14,11 @@ module HammerCliBluecat
       def execute
         # Get current domain identifiers...
         @domain_ids = domain_ids
+        @location_ids = location_ids
+        @organization_ids = organization_ids
+
         @tftp_id = tftp_id
+
         @catalog = {}
 
         # Build a list of subnet resources from Bluecat...
@@ -93,6 +97,8 @@ module HammerCliBluecat
               :dns_secondary => '152.1.14.21',
               :ipam => 'None',
               :domain_ids => @domain_ids,
+              :location_ids => @location_ids,
+              :organization_ids => @organization_ids,
               :tftp_id => @tftp_id,
               :boot_mode => 'DHCP'
           }
@@ -135,6 +141,14 @@ module HammerCliBluecat
 
   def domain_ids
     foreman.resource(:domains).call(:index)['results'].map { |e| e['id'] }
+  end
+
+  def location_ids
+    foreman.resource(:locations).call(:index)['results'].map { |e| e['id'] }
+  end
+
+  def organization_ids
+    foreman.resource(:organizations).call(:index)['results'].map { |e| e['id'] }
   end
 
   def tftp_id
